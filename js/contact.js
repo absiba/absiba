@@ -2,7 +2,7 @@
 jQuery(document).ready(function ($) {
 	
 	//if submit button is clicked
-	$('#submit').click(function () {		
+	$('#submit').click(function (event) {		
 		
 		//Get the data from all the fields
 		var name = $('input[name=name]');
@@ -42,7 +42,8 @@ jQuery(document).ready(function ($) {
 		
 		//organize the data
 		
-		var data = 'name=' + name.val() + '&email=' + email.val() + '&comment='  + encodeURIComponent(comment.val());
+		//var data = 'name=' + name.val() + '&email=' + email.val() + '&comment='  + encodeURIComponent(comment.val());
+		var formData='[{"name"'+':'+'"'+name.val()+'","email":'+'"'+email.val()+'",'+'"comment":'+'"'+comment.val()+'"'+'}]';
 
 		//disabled all the text fields
 		$('.text').attr('disabled','true');
@@ -53,33 +54,39 @@ jQuery(document).ready(function ($) {
 		//start the ajax
 		$.ajax({
 			//this is the php file that processes the data and sends email
-			url: "contact.php",	
-			
-			//GET method is used
-			type: "GET",
-
+			url: "https://sokt.io/bFwrBqKN9CEjQ4zdn9zt/personal-testwebhook",	
+			async: true,
+			crossDomain: true,
+			//POST method is used
+			method: "POST",
+			headers: {"content-type": "application/json","authkey": "ETtusAAR983dzdajYybT"},
+			processData: false,
 			//pass the data			
-			data: data,		
+			data: formData,		
 			
 			//Do not cache the page
 			cache: false,
 			
 			//success
-			success: function (html) {				
+			success: function (response) {				
 				//if contact.php returned 1/true (send mail success)
-				if (html==1) {
+				console.log(response);
+				//alert(response);
+				/*if (html==1) {*/
 				
 					//show the success message
-					$('.done').fadeIn('slow');
+					$('.done').fadeIn(1000);
 					
-					$(".form").find('input[type=text], textarea').val("");
+					$("#contactform").find('input[type=text],input[type=email], textarea').val("");
+					
 					
 				//if contact.php returned 0/false (send mail failed)
-				} else alert('Sorry, unexpected error. Please try again later.');				
+				/*} else alert('Sorry, unexpected error. Please try again later.');	*/			
 			}		
 		});
 		
 		//cancel the submit button default behaviours
+		event.preventDefault();
 		return false;
 	});	
 });	
