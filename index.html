@@ -392,7 +392,7 @@
 			<div class="tline-start-content">
 				<div class="tline-start-icon">
 				</div>
-				<a href="#" class="btn btn-primary bgn-xl wow zoomIn">START YOUR PROJECT WITH US</a>
+				<a href="#" class="btn btn-primary bgn-xl wow zoomIn" id="projecttalk">START YOUR PROJECT WITH US</a>
 			</div>
 			</li>
 		</ul>
@@ -1026,6 +1026,17 @@
     token: "61b43dae-c911-45c4-afec-12a2be2ef6bb",
     host: "https://wchat.freshchat.com"
   });
+</script>
+	<script>
+//Returns the current window state of the freshchat widget in boolean.
+//TRUE - Opened / FALSE - Closed
+jQuery('#projecttalk').on('click',function(event, data) {
+	alert('projecttalk clicked');
+    if (window.fcWidget.isOpen() != true) {
+        window.fcWidget.open();
+        //Or do something else :)
+    }
+});
 </script>
 </body>
 </html>
