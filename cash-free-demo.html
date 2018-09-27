@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   
+ 
+   </head>
+
+<body>
+ <!-- Place the below div on your html -->
+ <button id="paymentButton">pay me</button>
+<div id="payment-div"></div>
+
+
+
+	   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>  
+<!-- Paste below code base before the closing tag(</body>) of body element -->
+<script src="https://www.cashfree.com/assets/cashfree.sdk.v1.1.js" type="text/javascript"></script>
+<script type="text/javascript">
+(function() {
+  var data = {};
+  data.orderId = "100";
+  data.orderAmount = 600;
+  data.customerName = "Seth";
+  data.customerPhone = "9597133451";
+  data.customerEmail = "NALAMSTORE.TPJ@GMAIL.COM";
+  data.returnUrl = "http://fullyorganiconlydelivery.in/NalamProducts-Online/thankyou-neworder.php";
+  data.notifyUrl = "https://sokt.io/PBWT2Jhdh9n9QNgYP8p1/personal-cashfree-test";
+  data.appId = "1562ceeaf8b14c849c4ca50f2651";
+  data.paymentToken = "a1KDrykCL6mIZGmvbdJPUvI4at928EZVQurpN4hrMbg=";
+ 
+ /* var callback = function (event) {
+      var eventName = event.name;
+      switch(eventName) {
+        case "PAYMENT_REQUEST":
+           console.log(event.message);
+           break;
+        default:
+           console.log(event.message);
+       };
+  }
+  var config = {};
+  config.layout = {view: "inline", container: "payment-div", width: "600"};
+  config.mode = "TEST"; //use PROD when you go live
+  var response = CashFree.init(config);
+  if (response.status == "OK") {
+    CashFree.makePayment(data, callback);
+  } else {
+    //handle error
+     console.log(response.message);
+  }
+  })(); */
+  
+   var callback = function (event) {
+      var eventName = event.name;
+      switch(eventName) {
+        case "PAYMENT_REQUEST":
+           console.log(event.message);
+           break;
+        default:
+           console.log(event.message);
+       };
+  }
+  var config = {};
+  config.layout = {view: "popup", width: "650"};
+  config.mode = "TEST"; //use PROD when you go live
+  var response = CashFree.init(config);
+  if (response.status == "OK") {
+    cfInitialized = true;
+  } else {
+    //handle error
+     console.log(response.message);
+  }
+  // Make sure you put id of your payment button that triggers the payment flow in the below statement.
+  $("#paymentButton").click(function () {
+    if (cfInitialized) {
+      Cashfree.makePayment(data, callback);
+    }
+  });
+  })();
+</script>
+</script>
+ </body>
+</html>
