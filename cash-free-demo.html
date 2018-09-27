@@ -75,13 +75,17 @@
      console.log(response.message);
   }
   // Make sure you put id of your payment button that triggers the payment flow in the below statement.
+  
+  jQuery(document).ready(function ($) {
+    
   $("#paymentButton").click(function () {
     if (cfInitialized) {
       Cashfree.makePayment(data, callback);
     }
   });
+  });
   })();
 </script>
-</script>
- </body>
+</script> 
+    </body>
 </html>
